@@ -1,4 +1,5 @@
 import 'package:chat_firebase/app/login/login.dart';
+import 'package:chat_firebase/app/ui/ui.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -8,9 +9,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: AppTheme.light,
       title: 'Material App',
-      home: OnboardingPage(),
+      home: const OnboardingPage(),
     );
   }
 }

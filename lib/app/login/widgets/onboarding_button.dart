@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class OnboardingButton extends StatelessWidget {
-  const OnboardingButton({super.key});
+  const OnboardingButton({
+    super.key,
+    this.onTap,
+  });
+
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +31,7 @@ class OnboardingButton extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: onTap,
           child: const Text('Sign up withn mail'),
         ),
       ),

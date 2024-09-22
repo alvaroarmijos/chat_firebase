@@ -87,12 +87,21 @@ class OnboardingPage extends StatelessWidget {
                     ],
                   ),
                   const OnboardingDivider(),
-                  const OnboardingButton(),
+                  OnboardingButton(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SignUpPage(),
+                      ),
+                    ),
+                  ),
                   TextButton(
                     onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginPage())),
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginPage(),
+                      ),
+                    ),
                     child: RichText(
                       text: TextSpan(
                         text: 'Existing account? ',

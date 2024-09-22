@@ -1,10 +1,20 @@
-import 'package:chat_firebase/app/login/widgets/widgets.dart';
-import 'package:chat_firebase/app/ui/colors.dart';
-import 'package:chat_firebase/app/ui/drawables.dart';
+import 'package:chat_firebase/app/ui/ui.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  final _globalKey = GlobalKey<ScaffoldMessengerState>();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +22,7 @@ class LoginPage extends StatelessWidget {
     final textTheme = theme.textTheme;
 
     return Scaffold(
+      key: _globalKey,
       appBar: AppBar(),
       body: Stack(
         children: [
@@ -22,17 +33,16 @@ class LoginPage extends StatelessWidget {
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  text: 'Log in',
-                  style: textTheme.labelLarge?.copyWith(
-                    decoration: TextDecoration.underline,
-                    decorationThickness: 10,
-                    decorationColor: theme.colorScheme.primary.withOpacity(0.7),
-                  ),
+                  text: 'Sign up with ',
+                  style: textTheme.labelLarge,
                   children: [
                     TextSpan(
-                      text: ' to Chateo',
+                      text: 'Email',
                       style: textTheme.labelLarge?.copyWith(
-                        decoration: null,
+                        decoration: TextDecoration.underline,
+                        decorationThickness: 10,
+                        decorationColor:
+                            theme.colorScheme.primary.withOpacity(0.7),
                       ),
                     ),
                   ],
@@ -40,56 +50,49 @@ class LoginPage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Text(
-                'Welcome back! Sign in using your social account or email to continue us',
+                'Get chatting with friends and family today by signing up for our chat app!',
                 style: TextStyle(
                   color: AppColors.darkGrey,
                 ),
                 textAlign: TextAlign.center,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 24,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SocialMediaButton(
-                      iconPath: AppDrawables.facebookIconDrawable,
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    SocialMediaButton(
-                      iconPath: AppDrawables.googleIconDrawable,
-                      onTap: () {},
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    SocialMediaButton(
-                      iconPath: AppDrawables.appleIconDrawable,
-                    ),
-                  ],
+              const SizedBox(height: 40),
+              TextFormField(
+                textInputAction: TextInputAction.next,
+                onChanged: (value) {},
+                decoration: const InputDecoration(
+                  label: Text('Your name'),
                 ),
               ),
-              OnboardingDivider(
-                color: AppColors.darkGrey,
-              ),
+              const SizedBox(height: 16),
               TextFormField(
                 textInputAction: TextInputAction.next,
                 onChanged: (value) {},
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
-                  label: Text('Your email'),
+                  label: Text(
+                    'Your email',
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                textInputAction: TextInputAction.next,
+                onChanged: (value) {},
+                obscureText: true,
+                decoration: const InputDecoration(
+                  label: Text('Password'),
                 ),
               ),
               const SizedBox(height: 16),
               TextFormField(
                 textInputAction: TextInputAction.done,
-                onChanged: (value) => {},
+                onChanged: (value) {},
                 obscureText: true,
                 decoration: const InputDecoration(
-                  label: Text('Password'),
+                  label: Text(
+                    'Confirm Password',
+                  ),
                 ),
               ),
               const SizedBox(height: 92),
@@ -97,17 +100,18 @@ class LoginPage extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: SizedBox(
+            child: Container(
+              color: Colors.white,
               width: double.infinity,
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                 ).copyWith(
-                  bottom: 48,
+                  bottom: 32,
                 ),
                 child: ElevatedButton(
                   onPressed: () {},
-                  child: const Text('Log in'),
+                  child: const Text('Create an account'),
                 ),
               ),
             ),
