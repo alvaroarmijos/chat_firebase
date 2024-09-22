@@ -16,7 +16,7 @@ class AppTheme {
     labelLarge: TextStyle(
       fontSize: 18,
       color: Colors.black,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.normal,
     ),
     bodyMedium: TextStyle(
       fontSize: 12,
