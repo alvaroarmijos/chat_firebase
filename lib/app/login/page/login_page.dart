@@ -30,9 +30,7 @@ class LoginPage extends StatelessWidget {
               children: [
                 TextSpan(
                   text: ' to Chateo',
-                  style: textTheme.labelLarge?.copyWith(
-                    decoration: null,
-                  ),
+                  style: textTheme.labelLarge,
                 ),
               ],
             ),
