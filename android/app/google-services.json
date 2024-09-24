@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "123180101779",
+    "project_id": "chateela-6a5bd",
+    "storage_bucket": "chateela-6a5bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123180101779:android:0b690d5c8fc8d67c055d66",
+        "android_client_info": {
+          "package_name": "com.example.chat_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBG27xukipu_Y2c5-GJ9GfMgRXX8Prushs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
