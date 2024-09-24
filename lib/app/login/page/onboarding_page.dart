@@ -1,4 +1,5 @@
 import 'package:chat_firebase/app/login/login.dart';
+import 'package:chat_firebase/app/ui/navigator.dart';
 import 'package:chat_firebase/app/ui/ui.dart';
 import 'package:flutter/material.dart';
 
@@ -88,20 +89,10 @@ class OnboardingPage extends StatelessWidget {
                   ),
                   const OnboardingDivider(),
                   OnboardingButton(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SignUpPage(),
-                      ),
-                    ),
+                    onTap: () => AppNavigator.navigateToSignUp(context),
                   ),
                   TextButton(
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginPage(),
-                      ),
-                    ),
+                    onPressed: () => AppNavigator.navigateToLogin(context),
                     child: RichText(
                       text: TextSpan(
                         text: 'Existing account? ',
