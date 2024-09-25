@@ -1,0 +1,38 @@
+import 'package:chat_firebase/app/app.dart';
+import 'package:chat_firebase/app/bloc/bloc/auth_bloc.dart';
+import 'package:chat_firebase/app/ui/navigator.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class AuthHandler extends StatelessWidget {
+  const AuthHandler({super.key, required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    SchedulerBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        context.read<AuthBloc>().add(CheckUserEvent());
+      },
+    );
+
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is AuthStateLoggedIn) {
+          navigatorKey.currentState!.pushNamedAndRemoveUntil(
+            AppNavigator.ROUTE_HOME,
+            (route) => false,
+          );
+        } else if (state is AuthStateLoggedOut) {
+          navigatorKey.currentState!.pushNamedAndRemoveUntil(
+            AppNavigator.ROUTE_MAIN_PAGE,
+            (route) => false,
+          );
+        }
+      },
+      child: child,
+    );
+  }
+}
