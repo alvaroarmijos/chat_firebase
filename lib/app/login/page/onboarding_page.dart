@@ -1,7 +1,9 @@
+import 'package:chat_firebase/app/login/cubits/onboarding/onboarding_cubit.dart';
 import 'package:chat_firebase/app/login/login.dart';
 import 'package:chat_firebase/app/ui/navigator.dart';
 import 'package:chat_firebase/app/ui/ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
@@ -9,6 +11,7 @@ class OnboardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final onboardingCubit = context.read<OnboardingCubit>();
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -76,6 +79,7 @@ class OnboardingPage extends StatelessWidget {
                       SocialMediaButton(
                         iconPath: AppDrawables.googleIconDrawable,
                         borderColor: AppColors.grey,
+                        onTap: onboardingCubit.signInWithGoogle,
                       ),
                       const SizedBox(
                         width: 16,

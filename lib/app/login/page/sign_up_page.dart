@@ -132,11 +132,24 @@ class _SignUpPageState extends State<SignUpPage> {
         ).copyWith(
           bottom: 32 + keyboardHeight,
         ),
-        child: ElevatedButton(
-          onPressed: () {
-            signUpCubit.createAccount();
+        child: BlocBuilder<SignUpCubit, SignUpState>(
+          builder: (context, state) {
+            if (state.status == Status.inProgress) {
+              return const SizedBox(
+                height: 48,
+                child: Center(
+                  child: CircularProgressIndicator.adaptive(),
+                ),
+              );
+            }
+            return ElevatedButton(
+              onPressed: () {
+                FocusScope.of(context).unfocus();
+                signUpCubit.createAccount();
+              },
+              child: const Text('Create an account'),
+            );
           },
-          child: const Text('Create an account'),
         ),
       ),
     );

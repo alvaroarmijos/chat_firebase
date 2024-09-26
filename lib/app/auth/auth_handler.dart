@@ -1,5 +1,5 @@
 import 'package:chat_firebase/app/app.dart';
-import 'package:chat_firebase/app/bloc/bloc/auth_bloc.dart';
+import 'package:chat_firebase/app/auth/bloc/auth_bloc.dart';
 import 'package:chat_firebase/app/ui/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -27,7 +27,7 @@ class AuthHandler extends StatelessWidget {
           );
         } else if (state is AuthStateLoggedOut) {
           navigatorKey.currentState!.pushNamedAndRemoveUntil(
-            AppNavigator.ROUTE_MAIN_PAGE,
+            AppNavigator.ROUTE_ONBOARDING,
             (route) => false,
           );
         }

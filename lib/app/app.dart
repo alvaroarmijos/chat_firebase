@@ -1,11 +1,13 @@
-import 'package:chat_firebase/app/auth_handler.dart';
-import 'package:chat_firebase/app/bloc/bloc/auth_bloc.dart';
+import 'package:chat_firebase/app/auth/auth_handler.dart';
+import 'package:chat_firebase/app/auth/bloc/auth_bloc.dart';
 import 'package:chat_firebase/app/home/page/home_page.dart';
 import 'package:chat_firebase/app/login/cubits/login/login_cubit.dart';
+import 'package:chat_firebase/app/login/cubits/onboarding/onboarding_cubit.dart';
 import 'package:chat_firebase/app/login/cubits/sign_up/sign_up_cubit.dart';
 import 'package:chat_firebase/app/login/page/page.dart';
 import 'package:chat_firebase/app/ui/navigator.dart';
 import 'package:chat_firebase/app/ui/ui.dart';
+import 'package:chat_firebase/app/widgets/root_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,7 +26,11 @@ class App extends StatelessWidget {
           title: 'Material App',
           navigatorKey: navigatorKey,
           routes: {
-            AppNavigator.ROUTE_MAIN_PAGE: (context) => const OnboardingPage(),
+            AppNavigator.ROUTE_MAIN_PAGE: (context) => const RootPage(),
+            AppNavigator.ROUTE_ONBOARDING: (context) => BlocProvider(
+                  create: (context) => OnboardingCubit(),
+                  child: const OnboardingPage(),
+                ),
             AppNavigator.ROUTE_LOG_IN: (context) => BlocProvider(
                   create: (context) => LoginCubit(GlobalKey<FormState>()),
                   child: const LoginPage(),

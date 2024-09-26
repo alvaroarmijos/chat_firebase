@@ -9,6 +9,7 @@ class AppNavigator {
   static const ROUTE_LOG_IN = '/log-in';
   static const ROUTE_SIGN_UP = '/sign-up';
   static const ROUTE_HOME = '/home';
+  static const ROUTE_ONBOARDING = '/onboarding';
 
   static void navigateToLogin(BuildContext context) {
     Navigator.pushNamed(
