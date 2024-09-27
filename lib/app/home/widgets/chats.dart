@@ -1,5 +1,7 @@
-import 'package:chat_firebase/packages/authentication/insfrastructure/authentication_repository_impl.dart';
+import 'package:chat_firebase/app/home/bloc/home_bloc.dart';
+import 'package:chat_firebase/app/home/widgets/chat_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Chats extends StatelessWidget {
   const Chats({super.key});
@@ -34,23 +36,16 @@ class Chats extends StatelessWidget {
               textAlign: TextAlign.left,
             ),
           ),
-          const Spacer(),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                final repository = AuthenticationRepositoryImpl();
-                repository.logOut();
+          Flexible(
+            child: BlocBuilder<HomeBloc, HomeState>(
+              builder: (context, state) {
+                return ListView.builder(
+                  itemCount: state.contacts.length,
+                  itemBuilder: (context, index) => const ChatItem(),
+                );
               },
-              child: const Text('Log out'),
             ),
           ),
-          // Flexible(
-          //   child: ListView.builder(
-          //     itemCount: 4,
-          //     itemBuilder: (context, index) => const ChatItem(),
-          //   ),
-          // ),
         ],
       ),
     );

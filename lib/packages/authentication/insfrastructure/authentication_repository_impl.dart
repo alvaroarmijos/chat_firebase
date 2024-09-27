@@ -2,15 +2,17 @@ import 'package:chat_firebase/packages/authentication/domain/authentication_resp
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthenticationRepositoryImpl extends AuthenticationRespository {
+class AuthenticationRepositoryImpl extends AuthenticationRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   @override
   Future<void> signUp(String email, String password, String name) async {
-    await _firebaseAuth.createUserWithEmailAndPassword(
+    final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
+
+    await userCredential.user?.updateDisplayName(name);
   }
 
   @override

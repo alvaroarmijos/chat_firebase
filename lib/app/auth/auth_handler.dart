@@ -19,6 +19,11 @@ class AuthHandler extends StatelessWidget {
     );
 
     return BlocListener<AuthBloc, AuthState>(
+      listenWhen: (previous, current) =>
+          (previous is AuthStateLoading && (current is AuthStateLoggedIn) ||
+              (current is AuthStateLoggedOut)) ||
+          (previous is AuthStateLoggedOut && current is AuthStateLoggedIn) ||
+          (previous is AuthStateLoggedIn && current is AuthStateLoggedOut),
       listener: (context, state) {
         if (state is AuthStateLoggedIn) {
           navigatorKey.currentState!.pushNamedAndRemoveUntil(

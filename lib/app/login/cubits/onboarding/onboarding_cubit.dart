@@ -1,14 +1,16 @@
 import 'package:bloc/bloc.dart';
-import 'package:chat_firebase/packages/authentication/insfrastructure/authentication_repository_impl.dart';
+import 'package:chat_firebase/packages/authentication/domain/authentication_respository.dart';
 
 part 'onboarding_state.dart';
 
 class OnboardingCubit extends Cubit<OnboardingState> {
-  OnboardingCubit() : super(OnboardingState());
+  OnboardingCubit(
+    this._authenticationRepository,
+  ) : super(OnboardingState());
 
-  final repository = AuthenticationRepositoryImpl();
+  final AuthenticationRepository _authenticationRepository;
 
   void signInWithGoogle() {
-    repository.signInWithGoogle();
+    _authenticationRepository.signInWithGoogle();
   }
 }

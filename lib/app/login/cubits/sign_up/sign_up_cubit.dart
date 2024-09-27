@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:chat_firebase/packages/authentication/insfrastructure/authentication_repository_impl.dart';
+import 'package:chat_firebase/packages/authentication/domain/authentication_respository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -8,11 +8,12 @@ part 'sign_up_state.dart';
 class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit(
     this.formKey,
+    this._authenticationRepository,
   ) : super(SignUpState());
 
   final GlobalKey<FormState> formKey;
 
-  final authenticationRepository = AuthenticationRepositoryImpl();
+  final AuthenticationRepository _authenticationRepository;
 
   void onNameChange(String? value) {
     emit(state.copyWith(name: value));
@@ -43,7 +44,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       emit(state.copyWith(status: Status.inProgress));
       // Create account
       try {
-        await authenticationRepository.signUp(
+        await _authenticationRepository.signUp(
           state.email!,
           state.password!,
           state.name!,
@@ -56,7 +57,9 @@ class SignUpCubit extends Cubit<SignUpState> {
           emit(state.copyWith(status: Status.emailAllReadyRegistered));
         }
       } catch (e) {
-        emit(state.copyWith(status: Status.failed));
+        if (!isClosed) {
+          emit(state.copyWith(status: Status.failed));
+        }
       }
     }
   }

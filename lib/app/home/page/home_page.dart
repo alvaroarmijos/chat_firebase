@@ -1,11 +1,14 @@
+import 'package:chat_firebase/app/home/bloc/home_bloc.dart';
 import 'package:chat_firebase/app/home/widgets/chats.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    context.read<HomeBloc>().add(GetContactsEvent());
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       backgroundColor: Colors.black,

@@ -1,4 +1,4 @@
-import 'package:chat_firebase/packages/authentication/insfrastructure/authentication_repository_impl.dart';
+import 'package:chat_firebase/packages/authentication/domain/authentication_respository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,12 +7,13 @@ part 'login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit(
     this.formKey,
+    this._authenticationRepository,
   ) : super(LoginState());
 
   final GlobalKey<FormState> formKey;
+  final AuthenticationRepository _authenticationRepository;
 
-  final authenticationRepository = AuthenticationRepositoryImpl();
-
+  // final authenticationRepository = AuthenticationRepositoryImpl();
   void onEmailChange(String? value) {
     emit(state.copyWith(email: value));
   }
@@ -30,7 +31,7 @@ class LoginCubit extends Cubit<LoginState> {
     // codigo para loguear al usuario
     if (state.email != null && state.password != null) {
       try {
-        await authenticationRepository.logIn(state.email!, state.password!);
+        await _authenticationRepository.logIn(state.email!, state.password!);
         emit(state.copyWith(status: Status.success));
       } catch (e) {
         emit(state.copyWith(status: Status.failed));

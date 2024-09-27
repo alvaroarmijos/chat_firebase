@@ -1,5 +1,7 @@
 import 'package:chat_firebase/app/auth/auth_handler.dart';
 import 'package:chat_firebase/app/auth/bloc/auth_bloc.dart';
+import 'package:chat_firebase/app/di/di.dart';
+import 'package:chat_firebase/app/home/bloc/home_bloc.dart';
 import 'package:chat_firebase/app/home/page/home_page.dart';
 import 'package:chat_firebase/app/login/cubits/login/login_cubit.dart';
 import 'package:chat_firebase/app/login/cubits/onboarding/onboarding_cubit.dart';
@@ -8,6 +10,7 @@ import 'package:chat_firebase/app/login/page/page.dart';
 import 'package:chat_firebase/app/ui/navigator.dart';
 import 'package:chat_firebase/app/ui/ui.dart';
 import 'package:chat_firebase/app/widgets/root_page.dart';
+import 'package:chat_firebase/packages/authentication/domain/authentication_respository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,18 +31,29 @@ class App extends StatelessWidget {
           routes: {
             AppNavigator.ROUTE_MAIN_PAGE: (context) => const RootPage(),
             AppNavigator.ROUTE_ONBOARDING: (context) => BlocProvider(
-                  create: (context) => OnboardingCubit(),
+                  create: (context) => OnboardingCubit(
+                    getIt<AuthenticationRepository>(),
+                  ),
                   child: const OnboardingPage(),
                 ),
             AppNavigator.ROUTE_LOG_IN: (context) => BlocProvider(
-                  create: (context) => LoginCubit(GlobalKey<FormState>()),
+                  create: (context) => LoginCubit(
+                    GlobalKey<FormState>(),
+                    getIt<AuthenticationRepository>(),
+                  ),
                   child: const LoginPage(),
                 ),
             AppNavigator.ROUTE_SIGN_UP: (context) => BlocProvider(
-                  create: (context) => SignUpCubit(GlobalKey<FormState>()),
+                  create: (context) => SignUpCubit(
+                    GlobalKey<FormState>(),
+                    getIt<AuthenticationRepository>(),
+                  ),
                   child: const SignUpPage(),
                 ),
-            AppNavigator.ROUTE_HOME: (context) => const HomePage(),
+            AppNavigator.ROUTE_HOME: (context) => BlocProvider(
+                  create: (context) => HomeBloc(),
+                  child: const HomePage(),
+                ),
           },
         ),
       ),
