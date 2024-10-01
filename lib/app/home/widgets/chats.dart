@@ -41,7 +41,9 @@ class Chats extends StatelessWidget {
               builder: (context, state) {
                 return ListView.builder(
                   itemCount: state.contacts.length,
-                  itemBuilder: (context, index) => const ChatItem(),
+                  itemBuilder: (context, index) => ChatItem(
+                    contact: state.contacts[index],
+                  ),
                 );
               },
             ),

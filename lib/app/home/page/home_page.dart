@@ -1,15 +1,35 @@
+import 'package:chat_firebase/app/auth/bloc/auth_bloc.dart';
+import 'package:chat_firebase/app/di/di.dart';
 import 'package:chat_firebase/app/home/bloc/home_bloc.dart';
 import 'package:chat_firebase/app/home/widgets/chats.dart';
+import 'package:chat_firebase/app/widgets/chat_avatar.dart';
+import 'package:chat_firebase/packages/authentication/domain/authentication_respository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    context.read<HomeBloc>()
+      ..add(GetContactsEvent())
+      ..add(UpdateUserStatusEvent(status: true));
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    context.read<HomeBloc>().add(GetContactsEvent());
     final textTheme = Theme.of(context).textTheme;
+    final userState = context.read<AuthBloc>().state;
+    final user = userState is AuthStateLoggedIn ? userState.user : null;
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: Column(
@@ -28,11 +48,18 @@ class HomePage extends StatelessWidget {
                 ),
                 Text(
                   'Home',
-                  style: textTheme.titleLarge,
+                  style: textTheme.titleLarge?.copyWith(
+                    color: Colors.white,
+                  ),
                 ),
-                const CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      'https://photo-cdn2.icons8.com/OCUxgrB3qzbk934tC2nTmEl7VlvF-7f3LJ1fQ9HFuZA/rs:fit:576:384/czM6Ly9pY29uczgu/bW9vc2UtcHJvZC5l/eHRlcm5hbC9hMmE0/Mi82ODE1ODM3MTQ5/YTI0ZmE2YmEzYzBm/Njg0MDMyZjJlMy5q/cGc.webp'),
+                GestureDetector(
+                  onTap: () {
+                    getIt<AuthenticationRepository>().logOut();
+                  },
+                  child: ChatAvatar(
+                    name: user?.displayName ?? '',
+                    urlImage: user?.photoURL,
+                  ),
                 ),
               ],
             ),

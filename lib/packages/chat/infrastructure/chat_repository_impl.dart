@@ -1,5 +1,6 @@
 import 'package:chat_firebase/packages/chat/domain/chat_repository.dart';
 import 'package:chat_firebase/packages/chat/domain/contact.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class ChatRepositoryImpl extends ChatRepository {
@@ -19,5 +20,14 @@ class ChatRepositoryImpl extends ChatRepository {
       }
       return {};
     }).map((data) => Contact.fromJsonArray(data.values.toList()));
+  }
+
+  @override
+  Future<void> updateUserStatus(User user, bool status) {
+    return _firebaseDatabase.ref('contacts').child(user.uid).update({
+      'name': user.displayName,
+      'photoUrl': user.photoURL,
+      'status': status,
+    });
   }
 }

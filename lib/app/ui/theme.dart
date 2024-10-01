@@ -23,6 +23,16 @@ class AppTheme {
       color: Colors.black,
       fontWeight: FontWeight.normal,
     ),
+    bodySmall: TextStyle(
+      color: Colors.black,
+      fontWeight: FontWeight.normal,
+    ),
+    bodyLarge: TextStyle(
+      color: Colors.black,
+    ),
+    titleLarge: TextStyle(
+      color: Colors.black,
+    ),
   );
 
   static final _dividerThemeData = DividerThemeData(

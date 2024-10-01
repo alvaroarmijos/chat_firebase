@@ -1,28 +1,49 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:chat_firebase/packages/authentication/domain/authentication_respository.dart';
+import 'package:chat_firebase/packages/chat/domain/chat_repository.dart';
 import 'package:chat_firebase/packages/chat/domain/contact.dart';
-import 'package:chat_firebase/packages/chat/infrastructure/chat_repository_impl.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc() : super(HomeState()) {
+  HomeBloc(
+    this._repository,
+    this._authenticationRepository,
+  ) : super(HomeState()) {
     on<GetContactsEvent>(_onGetContactsEvent);
+    on<UpdateUserStatusEvent>(_onUpdateUserStatusEvent);
   }
 
+  final ChatRepository _repository;
+  final AuthenticationRepository _authenticationRepository;
+
   FutureOr<void> _onGetContactsEvent(
-      GetContactsEvent event, Emitter<HomeState> emit) {
-    final repository = ChatRepositoryImpl();
+      GetContactsEvent event, Emitter<HomeState> emit) async {
+    final user = await _authenticationRepository.currentUser;
 
     return emit.forEach(
-      repository.getContacts(),
+      _repository.getContacts(),
       onData: (data) {
+        data.removeWhere(
+          (contact) => contact.id == user?.uid,
+        );
         return HomeState(
           contacts: data,
         );
       },
     );
+  }
+
+  FutureOr<void> _onUpdateUserStatusEvent(
+    UpdateUserStatusEvent event,
+    Emitter<HomeState> emit,
+  ) async {
+    final user = await _authenticationRepository.currentUser;
+    if (user != null) {
+      await _repository.updateUserStatus(user, event.status);
+    }
   }
 }

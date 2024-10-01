@@ -1,5 +1,6 @@
 import 'package:chat_firebase/app/auth/auth_handler.dart';
 import 'package:chat_firebase/app/auth/bloc/auth_bloc.dart';
+import 'package:chat_firebase/app/chat/pages/chat_page.dart';
 import 'package:chat_firebase/app/di/di.dart';
 import 'package:chat_firebase/app/home/bloc/home_bloc.dart';
 import 'package:chat_firebase/app/home/page/home_page.dart';
@@ -11,6 +12,7 @@ import 'package:chat_firebase/app/ui/navigator.dart';
 import 'package:chat_firebase/app/ui/ui.dart';
 import 'package:chat_firebase/app/widgets/root_page.dart';
 import 'package:chat_firebase/packages/authentication/domain/authentication_respository.dart';
+import 'package:chat_firebase/packages/chat/domain/chat_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -51,9 +53,13 @@ class App extends StatelessWidget {
                   child: const SignUpPage(),
                 ),
             AppNavigator.ROUTE_HOME: (context) => BlocProvider(
-                  create: (context) => HomeBloc(),
+                  create: (context) => HomeBloc(
+                    getIt<ChatRepository>(),
+                    getIt<AuthenticationRepository>(),
+                  ),
                   child: const HomePage(),
                 ),
+            AppNavigator.ROUTE_CHAT: (context) => const ChatPage(),
           },
         ),
       ),

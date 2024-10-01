@@ -52,4 +52,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
     // Once signed in, return the UserCredential
     await _firebaseAuth.signInWithCredential(credential);
   }
+
+  @override
+  Future<User?> get currentUser => user.first;
 }
