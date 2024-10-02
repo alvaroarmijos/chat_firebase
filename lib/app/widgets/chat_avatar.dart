@@ -6,20 +6,23 @@ class ChatAvatar extends StatelessWidget {
     super.key,
     this.urlImage,
     required this.name,
+    this.radius = 20,
   });
 
   final String? urlImage;
   final String name;
+  final double radius;
 
   @override
   Widget build(BuildContext context) {
     return urlImage != null
         ? CircleAvatar(
+            radius: radius,
             backgroundImage: NetworkImage(urlImage!),
           )
         : name.isEmpty
             ? Container(
-                width: 40,
+                width: radius * 2,
                 decoration: BoxDecoration(
                   color: Colors.grey[400],
                   shape: BoxShape.circle,
@@ -27,7 +30,7 @@ class ChatAvatar extends StatelessWidget {
               )
             : Avatar(
                 name: name,
-                shape: AvatarShape.circle(20),
+                shape: AvatarShape.circle(radius),
               );
   }
 }

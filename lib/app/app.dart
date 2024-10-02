@@ -1,5 +1,6 @@
 import 'package:chat_firebase/app/auth/auth_handler.dart';
 import 'package:chat_firebase/app/auth/bloc/auth_bloc.dart';
+import 'package:chat_firebase/app/chat/cubit/chat_cubit.dart';
 import 'package:chat_firebase/app/chat/pages/chat_page.dart';
 import 'package:chat_firebase/app/di/di.dart';
 import 'package:chat_firebase/app/home/bloc/home_bloc.dart';
@@ -8,11 +9,14 @@ import 'package:chat_firebase/app/login/cubits/login/login_cubit.dart';
 import 'package:chat_firebase/app/login/cubits/onboarding/onboarding_cubit.dart';
 import 'package:chat_firebase/app/login/cubits/sign_up/sign_up_cubit.dart';
 import 'package:chat_firebase/app/login/page/page.dart';
+import 'package:chat_firebase/app/profile/cubit/profile_cubit.dart';
+import 'package:chat_firebase/app/profile/pages/profile_page.dart';
 import 'package:chat_firebase/app/ui/navigator.dart';
 import 'package:chat_firebase/app/ui/ui.dart';
 import 'package:chat_firebase/app/widgets/root_page.dart';
 import 'package:chat_firebase/packages/authentication/domain/authentication_respository.dart';
 import 'package:chat_firebase/packages/chat/domain/chat_repository.dart';
+import 'package:chat_firebase/packages/messages/domain/messages_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -59,7 +63,19 @@ class App extends StatelessWidget {
                   ),
                   child: const HomePage(),
                 ),
-            AppNavigator.ROUTE_CHAT: (context) => const ChatPage(),
+            AppNavigator.ROUTE_CHAT: (context) => BlocProvider(
+                  create: (context) => ChatCubit(
+                    getIt<MessagesRepository>(),
+                  ),
+                  child: const ChatPage(),
+                ),
+            AppNavigator.ROUTE_PROFILE: (context) => BlocProvider(
+                  create: (context) => ProfileCubit(
+                    getIt<AuthenticationRepository>(),
+                    getIt<ChatRepository>(),
+                  ),
+                  child: const ProfilePage(),
+                ),
           },
         ),
       ),

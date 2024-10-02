@@ -18,7 +18,7 @@ class Contact {
   });
 
   factory Contact.fromJson(Map json) => Contact(
-        name: json["name"],
+        name: json["name"] ?? '',
         id: json["id"],
         photoUrl: json["photoUrl"],
         status: json["status"],

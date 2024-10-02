@@ -17,12 +17,16 @@ class ChatPage extends StatelessWidget {
           contact: contact,
         ),
       ),
-      body: const Stack(
+      body: Stack(
         children: [
           // List de mensajes
-          Messages(),
+          Messages(
+            contact: contact,
+          ),
           // Widget
-          ChatTextFormField(),
+          ChatTextFormField(
+            contactId: contact.id,
+          ),
         ],
       ),
     );

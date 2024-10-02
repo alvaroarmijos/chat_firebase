@@ -1,9 +1,8 @@
 import 'package:chat_firebase/app/auth/bloc/auth_bloc.dart';
-import 'package:chat_firebase/app/di/di.dart';
 import 'package:chat_firebase/app/home/bloc/home_bloc.dart';
 import 'package:chat_firebase/app/home/widgets/chats.dart';
+import 'package:chat_firebase/app/ui/navigator.dart';
 import 'package:chat_firebase/app/widgets/chat_avatar.dart';
-import 'package:chat_firebase/packages/authentication/domain/authentication_respository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -54,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    getIt<AuthenticationRepository>().logOut();
+                    AppNavigator.navigateToProfile(context);
                   },
                   child: ChatAvatar(
                     name: user?.displayName ?? '',

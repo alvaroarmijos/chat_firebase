@@ -12,6 +12,7 @@ class AppNavigator {
   static const ROUTE_HOME = '/home';
   static const ROUTE_ONBOARDING = '/onboarding';
   static const ROUTE_CHAT = '/chat';
+  static const ROUTE_PROFILE = '/profile';
 
   static void navigateToLogin(BuildContext context) {
     Navigator.pushNamed(
@@ -32,6 +33,13 @@ class AppNavigator {
       context,
       AppNavigator.ROUTE_CHAT,
       arguments: contact,
+    );
+  }
+
+  static void navigateToProfile(BuildContext context) {
+    Navigator.pushNamed(
+      context,
+      AppNavigator.ROUTE_PROFILE,
     );
   }
 }

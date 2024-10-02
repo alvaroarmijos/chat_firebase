@@ -2,6 +2,8 @@ import 'package:chat_firebase/packages/authentication/domain/authentication_resp
 import 'package:chat_firebase/packages/authentication/insfrastructure/authentication_repository_impl.dart';
 import 'package:chat_firebase/packages/chat/domain/chat_repository.dart';
 import 'package:chat_firebase/packages/chat/infrastructure/chat_repository_impl.dart';
+import 'package:chat_firebase/packages/messages/domain/messages_repository.dart';
+import 'package:chat_firebase/packages/messages/infrastructure/messages_repository_impl.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
@@ -13,4 +15,6 @@ void initDependencies() {
   );
 
   getIt.registerSingleton<ChatRepository>(ChatRepositoryImpl());
+
+  getIt.registerSingleton<MessagesRepository>(MessagesRepositoryImpl());
 }
