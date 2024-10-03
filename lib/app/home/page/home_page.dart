@@ -14,13 +14,29 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late final AppLifecycleListener _lifecycleListener;
+
   @override
   void initState() {
-    context.read<HomeBloc>()
+    final homeBloc = context.read<HomeBloc>();
+
+    _lifecycleListener = AppLifecycleListener(
+      onResume: () => homeBloc.add(UpdateUserStatusEvent(status: true)),
+      onPause: () => homeBloc.add(UpdateUserStatusEvent(status: false)),
+      onDetach: () => homeBloc.add(UpdateUserStatusEvent(status: false)),
+    );
+
+    homeBloc
       ..add(GetContactsEvent())
       ..add(UpdateUserStatusEvent(status: true));
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _lifecycleListener.dispose();
+    super.dispose();
   }
 
   @override
