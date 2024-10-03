@@ -1,3 +1,4 @@
+import 'package:chat_firebase/app/notifications/notifications_setup.dart';
 import 'package:chat_firebase/packages/authentication/domain/authentication_respository.dart';
 import 'package:chat_firebase/packages/authentication/insfrastructure/authentication_repository_impl.dart';
 import 'package:chat_firebase/packages/chat/domain/chat_repository.dart';
@@ -17,4 +18,6 @@ void initDependencies() {
   getIt.registerSingleton<ChatRepository>(ChatRepositoryImpl());
 
   getIt.registerSingleton<MessagesRepository>(MessagesRepositoryImpl());
+
+  getIt.registerSingleton(NotificationsSetup());
 }

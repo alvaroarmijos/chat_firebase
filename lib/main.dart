@@ -11,6 +11,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   initDependencies();
-  await NotificationsSetup().setupNotifications();
+  await getIt<NotificationsSetup>().setupNotifications();
   runApp(const App());
 }

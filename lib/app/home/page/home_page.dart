@@ -1,8 +1,11 @@
 import 'package:chat_firebase/app/auth/bloc/auth_bloc.dart';
+import 'package:chat_firebase/app/di/di.dart';
 import 'package:chat_firebase/app/home/bloc/home_bloc.dart';
 import 'package:chat_firebase/app/home/widgets/chats.dart';
+import 'package:chat_firebase/app/notifications/notifications_setup.dart';
 import 'package:chat_firebase/app/ui/navigator.dart';
 import 'package:chat_firebase/app/widgets/chat_avatar.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,7 +18,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late final AppLifecycleListener _lifecycleListener;
-
   @override
   void initState() {
     final homeBloc = context.read<HomeBloc>();
@@ -29,6 +31,9 @@ class _HomePageState extends State<HomePage> {
     homeBloc
       ..add(GetContactsEvent())
       ..add(UpdateUserStatusEvent(status: true));
+
+    FirebaseMessaging.onMessage
+        .listen(getIt<NotificationsSetup>().showNotification);
 
     super.initState();
   }

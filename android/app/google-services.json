@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "123180101779",
+    "project_id": "chateela-6a5bd",
+    "storage_bucket": "chateela-6a5bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123180101779:android:0b690d5c8fc8d67c055d66",
+        "android_client_info": {
+          "package_name": "com.example.chat_firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "123180101779-11ef8l0es0oms2q5vc8s40mp0e4dq311.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.chat_firebase",
+            "certificate_hash": "54648ad9fdc70c8227b2115de2700dbfe0aaed81"
+          }
+        },
+        {
+          "client_id": "123180101779-mjt1rm4oai7lphrv57gmsb39ehtfcmg9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBG27xukipu_Y2c5-GJ9GfMgRXX8Prushs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "123180101779-mjt1rm4oai7lphrv57gmsb39ehtfcmg9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "123180101779-gg3pi7me8gogf3glfcclhl8pj5ulgs6e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.chatFirebase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

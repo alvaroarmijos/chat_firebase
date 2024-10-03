@@ -23,11 +23,16 @@ class ChatRepositoryImpl extends ChatRepository {
   }
 
   @override
-  Future<void> updateUserStatus(User user, bool status) {
+  Future<void> updateUserStatus(
+    User user,
+    bool status, {
+    String? token,
+  }) {
     return _firebaseDatabase.ref('contacts').child(user.uid).update({
       'name': user.displayName,
       'photoUrl': user.photoURL,
       'status': status,
+      'token': token,
     });
   }
 }

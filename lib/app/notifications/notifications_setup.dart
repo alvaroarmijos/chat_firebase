@@ -12,8 +12,7 @@ class NotificationsSetup {
   final FirebaseMessaging _messaging = FirebaseMessaging.instance;
 
   Future<void> setupNotifications() async {
-    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-        FlutterLocalNotificationsPlugin();
+    final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
@@ -27,8 +26,27 @@ class NotificationsSetup {
     );
 
     await _messaging.requestPermission();
+  }
 
-    final token = await _messaging.getToken();
-    print(token);
+  void showNotification(RemoteMessage notification) {
+    final RemoteNotification? remoteNotification = notification.notification;
+    AndroidNotification? androidNotification = remoteNotification?.android;
+    final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+    if (remoteNotification != null && androidNotification != null) {
+      flutterLocalNotificationsPlugin.show(
+        remoteNotification.hashCode,
+        remoteNotification.title,
+        remoteNotification.body,
+        NotificationDetails(
+          android: AndroidNotificationDetails(
+            channel.id,
+            channel.name,
+            channelDescription: channel.description,
+            icon: 'launch_background',
+          ),
+        ),
+      );
+    }
   }
 }

@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:chat_firebase/packages/authentication/domain/authentication_respository.dart';
 import 'package:chat_firebase/packages/chat/domain/chat_repository.dart';
 import 'package:chat_firebase/packages/chat/domain/contact.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -19,6 +20,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   final ChatRepository _repository;
   final AuthenticationRepository _authenticationRepository;
+  final _firebaseMessaging = FirebaseMessaging.instance;
 
   FutureOr<void> _onGetContactsEvent(
       GetContactsEvent event, Emitter<HomeState> emit) async {
@@ -42,8 +44,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     final user = await _authenticationRepository.currentUser;
+    final token = await _firebaseMessaging.getToken();
     if (user != null) {
-      await _repository.updateUserStatus(user, event.status);
+      await _repository.updateUserStatus(user, event.status, token: token);
     }
   }
 }
